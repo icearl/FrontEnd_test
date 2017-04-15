@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>鸡年大滑稽哦~</title>
+        <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
+        <style>
+            /*button {
+                margin:0 auto;
+                width:400px;
+                height:100px;
+                border:1px solid #F00
+                align:center
+                text-align:center
+
+            }*/
+        </style>
+    </head>
+    <body>
+        <div>
+            <button type="button" name="button">戳我：小冰送大家一个中秋节礼物~</button>
+        </div>
+
+        <br>
+
+        <script>
+        var gift = function() {
+            var t = `
+            <div>
+                <img src="https://gss0.baidu.com/-4o3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/b3119313b07eca802172118a972397dda1448363.jpg" >
+                <br>
+                <button type="button" name="button">再戳！！！</button>
+                <br>
+            </div>
+            `
+            $('button').on('click', function(){
+                console.log('bind')
+                $('body').append(t)
+            })
+        }
+        gift()
+        </script>
+
+
+    </body>
+</html>
