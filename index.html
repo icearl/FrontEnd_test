@@ -14,37 +14,37 @@
     </head>
     <body>
         <div class="container touch">
-            <p>容器</p>
+            <input type="text" id="search-text-google" name="" value="" maxlength="20">
+            <button type="submit" id="button-submit-google" name="button">谷歌搜索</button>
+            <br>
+            <br>
+            <input type="text" id="search-text-baidu" name="" value="" maxlength="20">
+            <button type="submit" name="button">百度搜索</button>
+            <br>
+            <br>
+            <input type="text" id="search-text-zhihu" name="" value="" maxlength="20">
+            <button type="submit" name="button">直乎搜索</button>
         </div>
-        <!-- <a href="https://baidu.com" id='id-a-baidu'>百度</a> -->
 
-        <!-- <div class="link touch">
-            <a href="https://baidu.com">百度</a>
-        </div> -->
+
+
+
+
         <script>
-
-            var log = function() {
+            var log = function(){
                 console.log.apply(console, arguments)
             }
+            log('start')
 
-            var link = function() {
-                html = `
-                <a href="https://baidu.com" class='link touch'>百度jq</a>
-                `
-                $('.container').append(html)
-            }
 
-            var del = function() {
-                $('.link').remove()
-            }
-            $('.container').on('mouseover', function(e){
-                // log('mouseover', e, e.target)
-                link()
-            })
-
-            $('.touch').on('mouseout', function(e){
-                log('mouseover', e, e.target)
-                del()
+            $('#button-submit-google').on('click', function() {
+                log('function start')
+                var bdText = $('#search-text-baidu')[0].value
+                var ggText = $('#search-text-google')[0].value
+                var zhText = $('#search-text-zhihu')[0].value
+                log('before')
+                window.location = `https://www.google.com/#newwindow=1&q=${ggText}`
+                log('after')
             })
         </script>
     </body>
