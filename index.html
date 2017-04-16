@@ -1,51 +1,110 @@
+<!--可以有各个复选框可以选，选完以后，点『搜索』，就能把所有选中的搜索引擎的结果同时打开成新的标签页  -->
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
-        <title>mouseover1.3</title>
+        <title>MultiSearch V2.0</title>
         <!-- <script src="./jquery-3.2.1.min.js"></script>
         <script src="https://cdn.bootcss.com/jquery/3.2.1/core.js"></script> -->
         <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
-        <style media="screen">
-            .container {
-                background: lightblue;
+        <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+        <style>
+            .center {
+                position  : absolute;
+                top       : 38.2%;
+                left      : 50%;
+                transform : translate(-50%,-50%);
+            }
+            .input-search {
+                width: 500px;
+                height: 50px;
             }
         </style>
     </head>
     <body>
-        <div class="container touch">
-            <input type="text" id="search-text-google" name="" value="" maxlength="20">
-            <button type="submit" id="button-submit-google" name="button">谷歌搜索</button>
+        <div class="center">
+            <div>
+                <input type="text" id="search-text-single" class=" form-control input-search" placeholder="请输入搜索关键词" >
+            </div>
             <br>
+            <div class="center-block">
+                <span>
+                    <button type="submit" class="btn btn-primary btn-lg  " id="button-submit-google" name="button">谷歌</button>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" class='checkbox'data-url='https://www.google.com/#newwindow=1&q='id="Checkbox-google"  value="option1" >
+                    </label>
+                </span>
+
+                <span>
+                    <button type="submit" class="btn btn-primary btn-lg  " id="button-submit-baidu" name="button">百度</button>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" class='checkbox' data-url='https://www.baidu.com/s?wd='id="Checkbox-baidu"  value="option1">
+                    </label>
+                </span>
+
+                <span>
+                    <button type="submit" class="btn btn-primary btn-lg  " id="button-submit-zhihu" name="button">知乎</button>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" class='checkbox' data-url='https://www.zhihu.com/search?type=content&q='data-url=''id="Checkbox-zhihu"  value="option1">
+                    </label>
+                </span>
+
+                <span>
+                    <button type="submit" class="btn btn-primary btn-lg  " id="button-submit-stackoverflow" name="button">stackoverflow</button>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" class='checkbox' data-url='https://stackoverflow.com/search?q='id="Checkbox-stackoverflow"  value="option1">
+                    </label>
+                </span>
+
+            </div>
+
             <br>
-            <input type="text" id="search-text-baidu" name="" value="" maxlength="20">
-            <button type="submit" name="button">百度搜索</button>
-            <br>
-            <br>
-            <input type="text" id="search-text-zhihu" name="" value="" maxlength="20">
-            <button type="submit" name="button">直乎搜索</button>
+            <button type="submit" class="btn btn-primary btn-lg  " id="button-submit-search" name="button">同时搜索</button>
+
         </div>
-
-
-
-
+<!-- style='display:inline' -->
 
         <script>
+            // log
             var log = function(){
                 console.log.apply(console, arguments)
             }
-            log('start')
-
-
-            $('#button-submit-google').on('click', function() {
-                log('function start')
-                var bdText = $('#search-text-baidu')[0].value
-                var ggText = $('#search-text-google')[0].value
-                var zhText = $('#search-text-zhihu')[0].value
-                log('before')
-                window.location = `https://www.google.com/#newwindow=1&q=${ggText}`
-                log('after')
+            // 添加一个搜索的函数
+            var addListener = function(ButtonStr,url){
+                $(ButtonStr).on('click', function() {
+                    log('function start')
+                    var Text = $('#search-text-single')[0].value
+                    log('before')
+                    // 当前标签页跳转
+                    // window.location = `${url}${Text}`
+                    // 打开新标签页
+                    window.open(`${url}${Text}`)
+                    log('after')
+                })
+            }
+            // 要添加的单个搜索
+            addListener('#button-submit-google', 'https://www.google.com/#newwindow=1&q=')
+            addListener("#button-submit-baidu", 'https://www.baidu.com/s?wd=')
+            addListener("#button-submit-zhihu", 'https://www.zhihu.com/search?type=content&q=')
+            addListener("#button-submit-stackoverflow", 'https://stackoverflow.com/search?q=')
+            //一键搜索
+            $('#button-submit-search').on('click',function(){
+                var li = $('.checkbox')
+                // log('nice',li.length)
+                // var len = li.length
+                for (var i = 0; i < li.length; i++) {
+                    log('for start')
+                    var check = li[i]
+                    var jqCheck = $(check)
+                    if(jqCheck.is(":checked")){
+                        log('if start',i)
+                        var url = jqCheck.data('url')
+                        var Text = $('#search-text-single')[0].value
+                        window.open(`${url}${Text}`)
+                    }
+                }
             })
+
         </script>
     </body>
 </html>
