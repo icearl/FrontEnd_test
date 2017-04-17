@@ -108,7 +108,12 @@
                     }
                 }
             })
-
+            // 回车搜索
+            $('#search-text-single').on('keydown', function() {
+                if (event.key === 'Enter') {
+                    $('#button-submit-search').click()
+                }
+            })
         </script>
     </body>
 </html>
