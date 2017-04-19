@@ -1,4 +1,6 @@
 <!--可以有各个复选框可以选，选完以后，点『搜索』，就能把所有选中的搜索引擎的结果同时打开成新的标签页  -->
+
+<!--  -->
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,7 +23,7 @@
                  text-align:center;
             }
             .input-search {
-                width: 500px;
+                width: 900px;
                 height: 50px;
             }
             .checkbox {
@@ -69,7 +71,7 @@
                     </label>
                 </span>
 
-                <span>
+                <span class='search-items'>
                     <button type="submit" class="btn btn-primary btn-lg  " id="button-submit-stackoverflow" name="button">stackoverflow</button>
                     <label class="checkbox-inline">
                         <input type="checkbox" class='checkbox' data-url='https://stackoverflow.com/search?q='id="Checkbox-stackoverflow"  value="option1">
@@ -130,6 +132,24 @@
                     $('#button-submit-search').click()
                 }
             })
+            // 自动添加搜索：只要提供名字（中文和英文）和url
+            var addSearch = function(Name,url){
+                var html = `
+                <span class='search-items'>
+                    <button type="submit" class="btn btn-primary btn-lg  " id='button-submit-${Name}'' name="button">${Name}</button>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" class='checkbox' data-url='${url}' id="Checkbox-${Name}"  value="option1">
+                    </label>
+                </span>`
+                var lastSearch = $(".search-items").last()
+                lastSearch.after(html)
+                addListener(`#button-submit-${Name}`, url)
+            }
+            // 自动添加的items
+            addSearch('国内电子书','http://forfrigg.com/#gsc.tab=0&gsc.q=')
+            addSearch('国外电子书','http://zh.bookzz.org/s/?q=')
+
+
         </script>
     </body>
 </html>
